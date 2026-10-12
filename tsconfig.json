@@ -42,9 +42,15 @@
     "noEmit": true,
 
     "useUnknownInCatchVariables": true,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": false,
+
+    "paths": {
+      "#config": ["./src/config/index.ts"],
+      "#db": ["index.ts"],
+      "#db/*": ["./src/db/*"]
+    }
   },
 
-  "include": ["./src"],
+  "include": ["./src", "index.ts"],
   "exclude": ["./node_modules", "eslint.config.js"]
 }
