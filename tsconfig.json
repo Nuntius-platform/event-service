@@ -46,7 +46,7 @@
 
     "paths": {
       "#config": ["./src/config/index.ts"],
-      "#db": ["index.ts"],
+      "#db": ["./src/db/index.ts"],
       "#db/*": ["./src/db/*"]
     }
   },

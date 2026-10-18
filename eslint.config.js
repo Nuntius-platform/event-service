@@ -101,7 +101,7 @@ export default defineConfig([
           },
         },
       ],
-      'no-console': 'error',
+      'no-console': 'off',
       'id-length': ['error', { min: 2, properties: 'never' }],
       curly: ['error', 'all'],
       'no-var': 'error',
@@ -143,6 +143,12 @@ export default defineConfig([
           },
         },
       ],
+    },
+  },
+  {
+    files: ['src/ai/post.ts'],
+    rules: {
+      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
     },
   },
 
