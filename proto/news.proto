@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package news;
+
+service NewsService {
+  rpc GetArticles (GetArticlesRequest) returns (GetArticlesResponse);
+}
+
+message GetArticlesRequest {
+  oneof params {
+    CursorRequest cursorRequest = 1;
+    ArticleIdsRequest articleIdsRequest = 2;
+  }
+}
+
+message CursorRequest {
+  optional string cursor = 1;
+  int32 limit = 2;
+}
+
+message ArticleIdsRequest {
+  repeated string articleIds = 1;
+}
+
+message GetArticlesResponse {
+  repeated Article articles = 1;
+}
+
+message Article {
+  string id = 1;
+  string content = 2;
+}

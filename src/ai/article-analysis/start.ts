@@ -1,26 +1,24 @@
 import { analyze } from './analyze.ts'
+import { getArticles } from '../../grpc/get-articles.ts'
 import { save } from './save.ts'
-import { logger } from '#config'
 import { pool } from '#db'
 
-export async function start(articleId: string, articleText: string): Promise<void> {
-  try {
-    const existing = await pool.query<{ article_id: string }>(
-      `SELECT article_id
+export async function start(): Promise<void> {
+  const articles = await getArticles()
+
+  for (const { articleId, articleText } of articles) {
+    const existing = await pool.query(
+      `SELECT 1 AS exists 
         FROM article_analysis
         WHERE article_id = $1`,
       [articleId],
     )
 
     if (existing.rows.length) {
-      return
+      continue
     }
 
     const articleAnalysis = await analyze(articleId, articleText)
-
     await save(articleId, articleAnalysis)
-  } catch (error: unknown) {
-    logger.error({ err: error })
-    throw error
   }
 }
